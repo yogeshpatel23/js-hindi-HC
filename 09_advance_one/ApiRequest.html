@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Request</title>
+    <style>
+      table,
+      td {
+        border: 2px solid #999999;
+      }
+    </style>
+  </head>
+  <body style="background-color: #212121; color: #fff">
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Value</th>
+            <th>State</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>0</code></td>
+            <td><code>UNSENT</code></td>
+            <td>
+              Client has been created. <code>open()</code> not called yet.
+            </td>
+          </tr>
+          <tr>
+            <td><code>1</code></td>
+            <td><code>OPENED</code></td>
+            <td><code>open()</code> has been called.</td>
+          </tr>
+          <tr>
+            <td><code>2</code></td>
+            <td><code>HEADERS_RECEIVED</code></td>
+            <td>
+              <code>send()</code> has been called, and headers and status are
+              available.
+            </td>
+          </tr>
+          <tr>
+            <td><code>3</code></td>
+            <td><code>LOADING</code></td>
+            <td>Downloading; <code>responseText</code> holds partial data.</td>
+          </tr>
+          <tr>
+            <td><code>4</code></td>
+            <td><code>DONE</code></td>
+            <td>The operation is complete.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h2>Github User</h2>
+      <input type="text" id="username" />
+      <button id="btn">Get User</button>
+      <div
+        style="
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          width="200"
+          height="200"
+          style="border: 2px dotted #999999; border-radius: 50%"
+          src=""
+          alt=""
+          id="userimg"
+        />
+        <p id="name"></p>
+      </div>
+    </div>
+  </body>
+  <script>
+    const usernameInp = document.getElementById("username");
+    const imptag = document.getElementById("userimg");
+    const nametag = document.getElementById("name");
+
+    document.getElementById("btn").addEventListener("click", () => {
+      const requestUrl = `https://api.github.com/users/${usernameInp.value}`;
+      console.log(requestUrl);
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status) {
+            const data = JSON.parse(xhr.response);
+            console.log(data);
+            nametag.innerHTML = data.name;
+            imptag.setAttribute("src", data.avatar_url);
+          } else {
+            nametag.innerHTML = "Not found";
+          }
+        }
+      };
+      xhr.open("GET", requestUrl);
+      xhr.send();
+    });
+  </script>
+</html>
