@@ -151,3 +151,47 @@ function newGame() {
   });
 }
 ```
+
+## Project 5 Solution
+
+```javascript
+console.log("Project 5");
+let tds = document.querySelectorAll("td");
+console.log(tds);
+
+document.addEventListener("keydown", (e) => {
+  tds[0].innerHTML = e.key == " " ? "Space" : e.key;
+  tds[1].innerHTML = e.keyCode;
+  tds[2].innerHTML = e.code;
+});
+```
+
+## Project 6 Solution
+
+```javascript
+function getRandomColor() {
+  let color = "#";
+  let cororArr = "0123456789ABCDEF";
+  for (i = 0; i < 6; i++) {
+    color += cororArr[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+let intervalid;
+
+function startChangeBg() {
+  if (!intervalid) {
+    intervalid = setInterval(() => {
+      document.body.style.backgroundColor = getRandomColor();
+    }, 1000);
+  }
+}
+function stopChangeBg() {
+  clearInterval(intervalid);
+  intervalid = null;
+}
+
+document.getElementById("start").addEventListener("click", startChangeBg);
+document.getElementById("stop").addEventListener("click", stopChangeBg);
+```
