@@ -31,5 +31,5 @@ Object.defineProperties(chai, {
   },
 });
 
-console.log(Object.getOwnPropertyDescriptor(chai, "name"));
-// console.log(Object.getOwnPropertyDescriptors(Math));
+// console.log(Object.getOwnPropertyDescriptor(chai, "name"));
+console.log(Object.getOwnPropertyDescriptors(Math));
